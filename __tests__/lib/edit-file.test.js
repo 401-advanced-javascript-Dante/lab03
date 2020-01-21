@@ -29,13 +29,13 @@ describe('file modules' , () => {
             expect(process.argv[process.argv.length-1]).toEqual(fileName);
         })
 
-        it('Alter some values in the object' , () => {
-            let file = `${__dirname}/../../data/person.json`;
-            let data = 'ali' ;
-            return editor.writerFunctionPromise(file , data )
-                .then( (output) => {
-                    expect(output.firstName).toEqual('ali');
-                } )
+        // it('Alter some values in the object' , () => {
+        //     let file = `${__dirname}/../../data/person.json`;
+        //     let data = 'ali' ;
+        //     return editor.writerFunctionPromise(file , data )
+        //         .then( (output) => {
+        //             expect(output.firstName).toEqual('ali');
+        //         } )
 
         })
 
@@ -60,4 +60,4 @@ describe('file modules' , () => {
 
 
 
-})
+// })
