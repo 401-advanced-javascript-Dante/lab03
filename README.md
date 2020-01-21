@@ -7,18 +7,10 @@
 ### Links and Resources
 
 - [submission PR](working on it)
-- [ci/cd](http://xyz.com) (GitHub Actions)
-- [back-end server url](http://xyz.com) (when applicable)
-- [front-end application](http://xyz.com) (when applicable)
+- [ci/cd](https://github.com/401-advanced-javascript-Dante/lab03/commit/3c53656f1ed4bc1a062e1c660d7e83021e528938/checks?check_suite_id=412897577) (GitHub Actions)
+
 
 ### Setup
-
-#### `.env` requirements (where applicable)
-
-i.e.
-
-- `PORT` - Port Number
-- `MONGODB_URI` - URL to the running mongo instance/db
 
 #### How to initialize/run your application (where applicable)
 
@@ -27,8 +19,8 @@ i.e.
 #### Tests
 
 - How do you run tests?
-- Any tests of note?
-- Describe any tests that you did not complete, skipped, etc
+    npm test
+
 
 #### UML
 
