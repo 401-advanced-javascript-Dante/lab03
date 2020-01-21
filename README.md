@@ -6,7 +6,7 @@
 
 ### Links and Resources
 
-- [submission PR](working on it)
+- [submission PR](https://github.com/401-advanced-javascript-Dante/lab03/pull/1)
 - [ci/cd](https://github.com/401-advanced-javascript-Dante/lab03/commit/3c53656f1ed4bc1a062e1c660d7e83021e528938/checks?check_suite_id=412897577) (GitHub Actions)
 
 
