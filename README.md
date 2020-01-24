@@ -19,7 +19,11 @@
 #### Tests
 
 - How do you run tests?
-    npm test
+'npm test'
+- Any tests of note?
+jest --verbose --coverage
+- Describe any tests that you did not complete, skipped, etc
+all complete . 
 
 
 #### UML

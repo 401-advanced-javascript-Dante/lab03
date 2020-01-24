@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 
 
@@ -7,57 +7,102 @@
 
 
 const editor = require('../../lib/edit-file') ;
-const path = require("path");
+const path = require('path');
 describe('file modules' , () => {
 
-    describe('using promise ' , () => {
-        it('check if i can read the file as a string' , () => {
-            let file = `${__dirname}/../../data/person.json`;
-            // let fileName = path.basename(file);
-            // process.argv.push(fileName);
-            // console.log(fileName) ;
-            return editor.readerFunctionPromise(file)
-                .then( (data) => { 
-                    expect(typeof(data.toString().trim())).toEqual('string')
-                })
-        })
+  describe('using promise ' , () => {
+    it('check if i can read the file as a string' , () => {
+      let file = `${__dirname}/../../data/person.json`;
+      return editor.readerFunctionPromise(file)
+        .then( (data) => { 
+          expect(typeof(data.toString().trim())).toEqual('string');
+        });
+    });
 
-        it('check if Accepts a file name as a command line parameter' , () => {
-            let file = `${__dirname}/../../data/person.json`;
-            let fileName = path.basename(file);
-            process.argv.push(fileName);
-            expect(process.argv[process.argv.length-1]).toEqual(fileName);
-        })
+    it('check if Accepts a file name as a command line parameter' , () => {
+      let file = `${__dirname}/../../data/person.json`;
+      let fileName = path.basename(file);
+      process.argv.push(fileName);
+      expect(process.argv[process.argv.length-1]).toEqual(fileName);
+    });
 
-        // it('Alter some values in the object' , () => {
-        //     let file = `${__dirname}/../../data/person.json`;
-        //     let data = 'ali' ;
-        //     return editor.writerFunctionPromise(file , data )
-        //         .then( (output) => {
-        //             expect(output.firstName).toEqual('ali');
-        //         } )
 
+
+    // to alter some values i need to read the file convert it then make my changes then convert it to buffer   
+    // to send it again to the file 
+
+    it('Alter firstname value in the object file', () => {
+      let file = `${__dirname}/../../data/person.json`;
+      return editor.readerFunctionPromise(file)
+        .then( (data) => { 
+          let jsonData = JSON.parse(data.toString().trim());
+          return jsonData ;
         })
+        .then((data) => {
+          data.firstName = 'dante' ;
+          let buffData = Buffer.from(JSON.stringify(data));
+          return editor.writerFunctionPromise(file, buffData);
+        })
+        .then(() => {
+          return editor.readerFunctionPromise(file)
+            .then( (data) => { 
+              let jsonData = JSON.parse(data.toString().trim());
+              return expect(jsonData.firstName).toEqual('dante');
+            });
+        })
+        .catch((error) => { return error ;}) ;
+        
+    });
+
+    it('Make sure the other values remain the same after altering', () => {
+      let file = `${__dirname}/../../data/person.json`;
+      return editor.readerFunctionPromise(file)
+        .then( (data) => { 
+          let jsonData = JSON.parse(data.toString().trim());
+          return jsonData ;
+        })
+        .then((data) => {
+          data.firstName = 'dante' ;
+          let buffData = Buffer.from(JSON.stringify(data));
+          return editor.writerFunctionPromise(file, buffData);
+        })
+        .then(() => {
+          return editor.readerFunctionPromise(file)
+            .then( (data) => { 
+              let jsonData = JSON.parse(data.toString().trim());
+              return expect(jsonData.lastName).toEqual('Scissorhands');
+            });
+        })
+        .catch((error) => { return error ;}) ;
+          
+    });
+
+    it('Data format do not change after using the write method', () => {
+      let file = `${__dirname}/../../data/person.json`;
+      return editor.readerFunctionPromise(file)
+        .then( (data) => { 
+          let jsonData = JSON.parse(data.toString().trim());
+          return jsonData ;
+        })
+        .then((data) => {
+          data.firstName = 'DanTe' ;
+          let buffData = Buffer.from(JSON.stringify(data));
+          return editor.writerFunctionPromise(file, buffData);
+        })
+        .then(() => {
+          return editor.readerFunctionPromise(file)
+            .then( (data) => { 
+              let jsonData = data.toString().trim();
+              return expect(typeof(jsonData)).toEqual('string');
+            });
+        })
+        .catch((error) => { return error ;}) ;
+            
+    });
+  
 
 
     
-    })  
+  });  
 
-
-
-// describe('callback method' , () => {
-//     it('check the error if the name is wrong' , (check) => {
-//         let file = `${__dirname}/../../data/person.json`;
-//         editor.readerFunctionCallback(file , (err ,data) => {
-//             console.log('check the data', data.toString());
-//             console.log(process.argv);
-
-//             expect(err).toBeDefined();
-//             check();
-//         });
-//     });
-// });
-
-
-
-// })
+});
